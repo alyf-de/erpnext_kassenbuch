@@ -8,10 +8,14 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
+  "column_break_zojp",
+  "title",
+  "section_break_lmeq",
   "type",
   "column_break_xyik",
-  "title",
   "amount",
+  "column_break_jtzk",
+  "date",
   "section_main",
   "reference_type",
   "reference_name",
@@ -164,12 +168,31 @@
   {
    "fieldname": "column_break_uorj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_zojp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lmeq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jtzk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-15 11:06:06.887379",
+ "modified": "2026-02-15 11:48:17.613362",
  "modified_by": "Administrator",
  "module": "ERPNext Kassenbuch",
  "name": "Cash Transaction",
