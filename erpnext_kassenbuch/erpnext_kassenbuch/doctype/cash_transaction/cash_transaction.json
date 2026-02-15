@@ -1,0 +1,200 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "naming_series:",
+ "creation": "2025-02-14 12:15:00",
+ "doctype": "DocType",
+ "document_type": "Document",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "type",
+  "column_break_xyik",
+  "title",
+  "amount",
+  "section_main",
+  "reference_type",
+  "reference_name",
+  "column_break_main",
+  "party_type",
+  "party",
+  "party_name",
+  "amended_from",
+  "section_break_qgwn",
+  "company",
+  "column_break_uorj",
+  "cash_account",
+  "bank_account"
+ ],
+ "fields": [
+  {
+   "default": "CT-.YY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "CT-.YY.-",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_main",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Title"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Type",
+   "options": "Pay\nReceive\nBank Withdrawal\nBank Deposit",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "fieldname": "reference_type",
+   "fieldtype": "Link",
+   "label": "Reference Type",
+   "link_filters": "[[\"DocType\",\"name\",\"in\",[\"Sales Invoice\",\"Purchase Invoice\"]]]",
+   "mandatory_depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "options": "DocType"
+  },
+  {
+   "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference Name",
+   "mandatory_depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "options": "reference_type"
+  },
+  {
+   "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
+   "fieldname": "party_name",
+   "fieldtype": "Data",
+   "in_standard_filter": 1,
+   "label": "Party Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:in_list(['Bank Withdrawal', 'Bank Deposit'], doc.type)",
+   "fetch_from": "company.default_bank_account",
+   "fieldname": "bank_account",
+   "fieldtype": "Link",
+   "label": "Bank Account",
+   "link_filters": "[[\"Account\",\"account_type\",\"=\",\"Bank\"],[\"Account\",\"is_group\",\"=\",0]]",
+   "mandatory_depends_on": "eval:in_list(['Bank Withdrawal', 'Bank Deposit'], doc.type)",
+   "options": "Account"
+  },
+  {
+   "fetch_from": "company.default_cash_account",
+   "fetch_if_empty": 1,
+   "fieldname": "cash_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Cash Account",
+   "link_filters": "[[\"Account\",\"account_type\",\"=\",\"Cash\"],[\"Account\",\"is_group\",\"=\",0]]",
+   "options": "Account",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Cash Transaction",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xyik",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Amount",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_qgwn",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_uorj",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-02-15 11:06:06.887379",
+ "modified_by": "Administrator",
+ "module": "ERPNext Kassenbuch",
+ "name": "Cash Transaction",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}
