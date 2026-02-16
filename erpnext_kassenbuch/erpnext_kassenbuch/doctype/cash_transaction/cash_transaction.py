@@ -13,6 +13,9 @@ class CashTransaction(Document):
 		self.unallocated_amount = self.get_unallocated_amount()
 		self.unallocated_account = self.unallocated_account if self.unallocated_amount > 0 else None
 
+	def before_validate(self):
+		self.set_party_from_reference()
+
 	def validate(self):
 		self.set_title()
 		self.validate_mandatory_fields()
@@ -28,6 +31,24 @@ class CashTransaction(Document):
 				frappe._("Unallocated account is mandatory when unallocated amount is greater than zero")
 			)
 		self.create_journal_entry()
+
+	def set_party_from_reference(self):
+		"""
+		Set party_type, party, party_name from reference (Sales/Purchase Invoice).
+		Ensures they are set on save even when client-side async fetch hasn't completed.
+		"""
+		if self.type not in ("Pay", "Receive") or not self.reference_type or not self.reference_name:
+			return
+		if self.reference_type == "Sales Invoice":
+			self.party_type = "Customer"
+			self.party, self.party_name = frappe.db.get_value(
+				"Sales Invoice", self.reference_name, ["customer", "customer_name"]
+			)
+		elif self.reference_type == "Purchase Invoice":
+			self.party_type = "Supplier"
+			self.party, self.party_name = frappe.db.get_value(
+				"Purchase Invoice", self.reference_name, ["supplier", "supplier_name"]
+			)
 
 	def set_title(self):
 		self.title = (self.party_name or self.type or "").strip()

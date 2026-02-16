@@ -62,17 +62,13 @@ frappe.ui.form.on("Cash Transaction", {
 	type(frm) {
 		if (frm.doc.type === "Pay") {
 			frm.set_value("reference_type", "Purchase Invoice");
-			frm.set_value("reference_name", "");
-			frm.set_value("party_type", "");
-			frm.set_value("party", "");
-			frm.set_value("party_name", "");
 		} else if (frm.doc.type === "Receive") {
 			frm.set_value("reference_type", "Sales Invoice");
-			frm.set_value("reference_name", "");
-			frm.set_value("party_type", "");
-			frm.set_value("party", "");
-			frm.set_value("party_name", "");
 		}
+		frm.set_value("reference_name", "");
+		frm.set_value("party_type", "");
+		frm.set_value("party", "");
+		frm.set_value("party_name", "");
 	},
 
 	amount(frm) {
