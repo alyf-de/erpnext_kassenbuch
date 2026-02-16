@@ -5,15 +5,28 @@ import frappe
 from erpnext import get_default_cost_center
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import flt
+from frappe.utils import flt, fmt_money
 
 
 class CashTransaction(Document):
+	def before_save(self):
+		self.unallocated_amount = self.get_unallocated_amount()
+		self.unallocated_account = self.unallocated_account if self.unallocated_amount > 0 else None
+
 	def validate(self):
 		self.set_title()
 		self.validate_mandatory_fields()
+		self.validate_unallocated_amount()
+
+	def before_submit(self):
+		self.unallocated_amount = self.get_unallocated_amount()
+		self.unallocated_account = self.unallocated_account if self.unallocated_amount > 0 else None
 
 	def on_submit(self):
+		if self.unallocated_amount > 0 and not self.unallocated_account:
+			frappe.throw(
+				frappe._("Unallocated account is mandatory when unallocated amount is greater than zero")
+			)
 		self.create_journal_entry()
 
 	def set_title(self):
@@ -22,10 +35,48 @@ class CashTransaction(Document):
 	def validate_mandatory_fields(self):
 		self._validate_reference_for_pay_receive()
 		self._validate_bank_account_for_bank_types()
-		if not self.cash_account:
-			frappe.throw(frappe._("Cash Account is mandatory"))
 		if not self.amount or self.amount <= 0:
 			frappe.throw(frappe._("Amount must be greater than zero"))
+
+	def validate_unallocated_amount(self):
+		"""
+		Avoid that 100% is unallocated (for example, if there is no outstanding amount on the reference).
+		"""
+		if round(self.unallocated_amount, 2) == round(self.amount, 2):
+			frappe.throw(frappe._("Unallocated amount cannot be 100% of the payment amount."))
+
+	@frappe.whitelist()
+	def get_unallocated_amount(self):
+		"""
+		Get the unallocated amount from the reference. Fallback: 0
+		"""
+		frappe.has_permission("Cash Transaction", ptype="write", throw=True)
+		if not self.reference_type or not self.reference_name:
+			return 0
+		outstanding = frappe.db.get_value(self.reference_type, self.reference_name, "outstanding_amount")
+		return flt(max(flt(self.amount) - abs(flt(outstanding)), 0))
+
+	@frappe.whitelist()
+	def check_unallocated_before_submit(self):
+		"""Return whether unallocated amount has changed (for client confirm dialog)."""
+		frappe.has_permission("Cash Transaction", ptype="write", throw=True)
+		new_amount = self.get_unallocated_amount()
+		if round(new_amount, 2) == round(flt(self.unallocated_amount), 2):
+			return {"changed": False}
+		currency, outstanding = frappe.db.get_value(
+			self.reference_type, self.reference_name, ["currency", "outstanding_amount"]
+		)
+		msg = _("Unallocated amount has changed. Old: {0}, New: {1}. Outstanding: {2}.").format(
+			fmt_money(self.unallocated_amount, currency=currency),
+			fmt_money(new_amount, currency=currency),
+			fmt_money(outstanding, currency=currency),
+		)
+		return {"changed": True, "message": msg}
+
+	@frappe.whitelist()
+	def update_unallocated_only(self):
+		"""Update only unallocated_amount and unallocated_account (no submit)."""
+		self.save()
 
 	def _validate_reference_for_pay_receive(self):
 		if self.type in ("Pay", "Receive"):
@@ -40,6 +91,9 @@ class CashTransaction(Document):
 	def create_journal_entry(self):
 		"""
 		Create a Journal Entry for the Cash Transaction.
+
+		Amounts: paid (full amount), allocated (against invoice), unallocated (to unallocated account).
+		For Pay/Receive with unallocated amount, the JE has three rows; otherwise two.
 		"""
 		je = frappe.new_doc("Journal Entry")
 
@@ -63,21 +117,67 @@ class CashTransaction(Document):
 			}
 		)
 
-		# Journal Entry Accounts (child level, account rows)
+		# Journal Entry Accounts: paid (full amount), allocated (against invoice), unallocated (suspense)
 		cost_center = self._get_cost_center()
-		amount = flt(self.amount)
+		paid_amount = flt(self.amount)
+		unallocated = flt(self.unallocated_amount, 2)
+		allocated_amount = paid_amount - unallocated
+
 		debit_account, credit_account = self._get_debit_credit_accounts()
-		debit_row = {
-			"account": debit_account,
-			"debit_in_account_currency": amount,
-			"cost_center": cost_center,
-		}
-		credit_row = {
-			"account": credit_account,
-			"credit_in_account_currency": amount,
-			"cost_center": cost_center,
-		}
-		rows = self._add_reference_to_rows(debit_row, credit_row)
+		is_pay_receive_with_reference = (
+			self.type in ("Pay", "Receive") and self.reference_type and self.reference_name
+		)
+		has_unallocated = is_pay_receive_with_reference and unallocated > 0 and self.unallocated_account
+
+		if has_unallocated:
+			# Against account gets allocated amount; cash/bank gets full paid amount; third row = unallocated
+			if self.type == "Receive":
+				debit_row = {
+					"account": debit_account,
+					"debit_in_account_currency": paid_amount,
+					"cost_center": cost_center,
+				}
+				credit_row = {
+					"account": credit_account,
+					"credit_in_account_currency": allocated_amount,
+					"cost_center": cost_center,
+				}
+				unallocated_row = {
+					"account": self.unallocated_account,
+					"credit_in_account_currency": unallocated,
+					"cost_center": cost_center,
+				}
+			else:  # Pay
+				debit_row = {
+					"account": debit_account,
+					"debit_in_account_currency": allocated_amount,
+					"cost_center": cost_center,
+				}
+				credit_row = {
+					"account": credit_account,
+					"credit_in_account_currency": paid_amount,
+					"cost_center": cost_center,
+				}
+				unallocated_row = {
+					"account": self.unallocated_account,
+					"debit_in_account_currency": unallocated,
+					"cost_center": cost_center,
+				}
+			rows = [*self._add_reference_to_rows(debit_row, credit_row), unallocated_row]
+		else:
+			# Two rows: full amount on both sides
+			debit_row = {
+				"account": debit_account,
+				"debit_in_account_currency": paid_amount,
+				"cost_center": cost_center,
+			}
+			credit_row = {
+				"account": credit_account,
+				"credit_in_account_currency": paid_amount,
+				"cost_center": cost_center,
+			}
+			rows = self._add_reference_to_rows(debit_row, credit_row)
+
 		je.set("accounts", rows)
 
 		# Insert and submit Journal Entry
