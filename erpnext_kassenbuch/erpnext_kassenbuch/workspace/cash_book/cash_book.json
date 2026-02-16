@@ -1,0 +1,54 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"vc4WCCZj1Q\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Cash Book</span>\",\"col\":12}},{\"id\":\"3d5rnfx_aM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Cash Transaction\",\"col\":3}},{\"id\":\"wj9Hd4SLvf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Cash Transaction (List View)\",\"col\":3}},{\"id\":\"ZDKEkZ0nxp\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"9DdTSPmW-C\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Cash Book (Report)\",\"col\":3}}]",
+ "creation": "2026-02-16 18:46:10.709691",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "income",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Cash Book",
+ "links": [],
+ "modified": "2026-02-16 18:51:04.607985",
+ "modified_by": "Administrator",
+ "module": "ERPNext Kassenbuch",
+ "name": "Cash Book",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 57.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Cash Transaction",
+   "link_to": "Cash Transaction",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Cash Transaction (List View)",
+   "link_to": "Cash Transaction",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Cash Book (Report)",
+   "link_to": "Cash Book",
+   "report_ref_doctype": "GL Entry",
+   "type": "Report"
+  }
+ ],
+ "title": "Cash Book"
+}
