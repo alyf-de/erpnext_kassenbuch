@@ -3,6 +3,7 @@
 
 import frappe
 from erpnext import get_default_cost_center
+from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
 
@@ -43,6 +44,14 @@ class CashTransaction(Document):
 		je = frappe.new_doc("Journal Entry")
 
 		# Journal Entry (parent level)
+		remark = _(self.type)  # Default remark
+		if self.reference_name and self.party_name:
+			remark = f"{self.reference_name} ({self.party_name})"
+			if self.reference_type == "Purchase Invoice" and (
+				supplier_bill_no := frappe.db.get_value("Purchase Invoice", self.reference_name, "bill_no")
+			):
+				remark = f"{supplier_bill_no}, {remark}"
+
 		je.update(
 			{
 				"voucher_type": "Cash Entry",
@@ -50,7 +59,7 @@ class CashTransaction(Document):
 				"posting_date": self.date,
 				"is_system_generated": 1,
 				"custom_cash_transaction": self.name,
-				"remark": f"Cash Transaction: {self.name} ({self.type})",
+				"remark": remark,
 			}
 		)
 
@@ -72,6 +81,7 @@ class CashTransaction(Document):
 		je.set("accounts", rows)
 
 		# Insert and submit Journal Entry
+		je.flags.skip_remarks_creation = True
 		je.insert(ignore_permissions=True)
 		je.submit()
 
