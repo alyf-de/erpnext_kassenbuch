@@ -2,6 +2,17 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Cash Transaction", {
+	onload(frm) {
+		frm.set_query("reference_name", function () {
+			if (!frm.doc.reference_type) return {};
+			const filters = { docstatus: 1, outstanding_amount: ["!=", 0] };
+			if (frm.doc.company) {
+				filters.company = frm.doc.company;
+			}
+			return { filters };
+		});
+	},
+
 	type(frm) {
 		if (frm.doc.type === "Pay") {
 			frm.set_value("reference_type", "Purchase Invoice");
