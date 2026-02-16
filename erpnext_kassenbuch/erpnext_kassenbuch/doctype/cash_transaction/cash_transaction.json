@@ -217,8 +217,13 @@
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2026-02-16 17:47:28.269425",
+ "links": [
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "custom_cash_transaction"
+  }
+ ],
+ "modified": "2026-02-16 18:38:06.461229",
  "modified_by": "Administrator",
  "module": "ERPNext Kassenbuch",
  "name": "Cash Transaction",
