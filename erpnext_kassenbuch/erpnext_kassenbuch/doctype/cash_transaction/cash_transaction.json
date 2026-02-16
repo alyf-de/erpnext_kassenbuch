@@ -16,6 +16,10 @@
   "amount",
   "column_break_jtzk",
   "date",
+  "section_break_mduz",
+  "unallocated_amount",
+  "column_break_hucd",
+  "unallocated_account",
   "section_main",
   "reference_type",
   "reference_name",
@@ -23,11 +27,9 @@
   "party_type",
   "party",
   "party_name",
-  "unallocated_amount",
-  "unallocated_account",
-  "amended_from",
   "section_break_qgwn",
   "company",
+  "amended_from",
   "column_break_uorj",
   "cash_account",
   "bank_account"
@@ -107,11 +109,11 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval: doc.unallocated_amount > 0",
    "fieldname": "unallocated_amount",
    "fieldtype": "Currency",
    "label": "Unallocated Amount",
-   "read_only": 1,
-   "depends_on": "eval: doc.unallocated_amount > 0"
+   "read_only": 1
   },
   {
    "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type) && doc.unallocated_amount > 0",
@@ -203,12 +205,20 @@
    "fieldtype": "Date",
    "label": "Date",
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_mduz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_hucd",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-16 17:42:00.000000",
+ "modified": "2026-02-16 17:47:28.269425",
  "modified_by": "Administrator",
  "module": "ERPNext Kassenbuch",
  "name": "Cash Transaction",
