@@ -1,0 +1,317 @@
+# Translations template for ERPNext Kassenbuch.
+# Copyright (C) 2026 ALYF GmbH
+# This file is distributed under the same license as the ERPNext Kassenbuch project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ERPNext Kassenbuch VERSION\n"
+"Report-Msgid-Bugs-To: hallo@alyf.de\n"
+"POT-Creation-Date: 2026-02-16 18:52+0053\n"
+"PO-Revision-Date: 2026-02-16 18:52+0053\n"
+"Last-Translator: hallo@alyf.de\n"
+"Language-Team: hallo@alyf.de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#. Header text in the Cash Book Workspace
+#: erpnext_kassenbuch/erpnext_kassenbuch/workspace/cash_book/cash_book.json
+msgid "<span class=\"h4\">Cash Book</span>"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.js:54
+msgid "Accept and submit anyway?"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:25
+msgid "Account {0} is not a Cash account"
+msgstr ""
+
+#. Name of a role
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Accounts Manager"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:288
+msgid "Allocated: {0} on {1} ({2}).<br>Unallocated: {3} ({4}).<br>Cash account balance: {5}."
+msgstr ""
+
+#. Label of a Check field in DocType 'Cash Transaction Settings'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction_settings/cash_transaction_settings.json
+msgid "Allow manual Journal Entries"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Amended From"
+msgstr ""
+
+#. Label of a Currency field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:73
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:36
+msgid "Amount"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:62
+msgid "Amount must be greater than zero"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:43
+msgid "Balance"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Bank Account"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:112
+msgid "Bank Account is mandatory for type {0}"
+msgstr ""
+
+#. Option for the 'Type' (Select) field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Bank Deposit"
+msgstr ""
+
+#. Option for the 'Type' (Select) field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Bank Withdrawal"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:76
+msgid "Cancelled"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:45
+msgid "Cash Account"
+msgstr ""
+
+#. Name of a report
+#. Name of a Workspace
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.js:6
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/workspace/cash_book/cash_book.json
+msgid "Cash Book"
+msgstr ""
+
+#. Label of a shortcut in the Cash Book Workspace
+#: erpnext_kassenbuch/erpnext_kassenbuch/workspace/cash_book/cash_book.json
+msgid "Cash Book (Report)"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/public/js/purchase_invoice.js:13
+#: erpnext_kassenbuch/public/js/sales_invoice.js:13
+msgid "Cash Transaction"
+msgstr ""
+
+#. Label of a shortcut in the Cash Book Workspace
+#: erpnext_kassenbuch/erpnext_kassenbuch/workspace/cash_book/cash_book.json
+msgid "Cash Transaction (List View)"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction_settings/cash_transaction_settings.json
+msgid "Cash Transaction Settings"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:287
+msgid "Cash Transaction submitted"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:280
+msgid "Cash account balance: {0}"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:103
+msgid "Closing (Opening + Total)"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:8
+msgid "Company"
+msgstr ""
+
+#: erpnext_kassenbuch/public/js/purchase_invoice.js:27
+#: erpnext_kassenbuch/public/js/sales_invoice.js:27
+msgid "Create"
+msgstr ""
+
+#. Label of a Date field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:32
+msgid "Date"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:31
+msgid "From Date"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:22
+msgid "From Date must be before To Date"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:31
+msgid "ID"
+msgstr ""
+
+#. Description of the 'Allow manual Journal Entries' (Check) field in DocType
+#. 'Cash Transaction Settings'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction_settings/cash_transaction_settings.json
+msgid ""
+"If activated, Journal Entries can be created manually (or via Bank Reconciliation Tool). If activated, you can save some clicks (e. g. by reconciling a Bank Withdrawal directly from the Bank Reconciliation Tool). On the other hand, you are at risk to create the same withdrawal twice: Once via Cash Transaction and once via Bank Reconciliation Tool. If you leave this setting disabled and you use a Bank Reconciliation Tool, you need to create a Cash Transaction first and reconcile the Bank Transaction (in the Bank Reconciliation Tool) with the resulting Journal Entry.\n"
+"This setting only considers cash accounts."
+msgstr ""
+
+#: erpnext_kassenbuch/scripts/journal_entry.py:15
+msgid "Journal Entries that include a Cash Account have to be created via the <b>Cash Transaction</b> doctype. Alternatively you can activate the <i>Allow manual Journal Entries</i> setting in the <b>Cash Transaction Settings</b>."
+msgstr ""
+
+#. Linked DocType in Cash Transaction's connections
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Journal Entry"
+msgstr ""
+
+#: erpnext_kassenbuch/scripts/journal_entry.py:32
+msgid "Linked Cash Transaction {0} was automatically cancelled as well."
+msgstr ""
+
+#. Label of a shortcut in the Cash Book Workspace
+#: erpnext_kassenbuch/erpnext_kassenbuch/workspace/cash_book/cash_book.json
+msgid "New Cash Transaction"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:62
+msgid "Opening"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:174
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:210
+msgid "Other"
+msgstr ""
+
+#. Label of a Dynamic Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Party"
+msgstr ""
+
+#. Label of a Data field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Party Name"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Party Type"
+msgstr ""
+
+#. Option for the 'Type' (Select) field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Pay"
+msgstr ""
+
+#. Option for the 'Type' (Select) field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Receive"
+msgstr ""
+
+#. Label of a Dynamic Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Reference Name"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Reference Type"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:107
+msgid "Reference Type and Name are mandatory for type {0}"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:49
+msgid "Remarks"
+msgstr ""
+
+#. Label of a Select field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Series"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:30
+msgid "Status"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:76
+msgid "Submitted"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:78
+msgid "Submitted Only"
+msgstr ""
+
+#. Name of a role
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction_settings/cash_transaction_settings.json
+msgid "System Manager"
+msgstr ""
+
+#. Label of a Data field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:63
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:33
+msgid "Title"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:38
+msgid "To Date"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:95
+msgid "Total"
+msgstr ""
+
+#. Label of a Select field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.py:34
+msgid "Type"
+msgstr ""
+
+#. Label of a Link field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Unallocated Account"
+msgstr ""
+
+#. Label of a Currency field in DocType 'Cash Transaction'
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.json
+msgid "Unallocated Amount"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:32
+msgid "Unallocated account is mandatory when unallocated amount is greater than zero"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:69
+#, python-format
+msgid "Unallocated amount cannot be 100% of the payment amount."
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:92
+msgid "Unallocated amount has changed. Old: {0}, New: {1}. Outstanding: {2}."
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/report/cash_book/cash_book.js:68
+msgid "Voucher No"
+msgstr ""
+
+#: erpnext_kassenbuch/erpnext_kassenbuch/doctype/cash_transaction/cash_transaction.py:277
+msgid "{0} submitted"
+msgstr ""
+
