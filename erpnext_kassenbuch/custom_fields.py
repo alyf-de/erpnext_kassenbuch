@@ -12,6 +12,7 @@ def get_custom_fields():
 				"label": "Cash Transaction",
 				"options": "Cash Transaction",
 				"read_only": 1,
+				"no_copy": 1,
 			},
 		],
 	}
