@@ -137,13 +137,11 @@ after_install = "erpnext_kassenbuch.install.after_install"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Journal Entry": {
+		"on_cancel": "erpnext_kassenbuch.scripts.journal_entry.on_cancel",
+	},
+}
 
 # Scheduled Tasks
 # ---------------
