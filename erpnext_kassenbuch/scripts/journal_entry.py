@@ -27,7 +27,7 @@ def cancel_cash_transaction(cash_transaction_id):
 	"""When a Journal Entry is cancelled, cancel the linked Cash Transaction if any."""
 	if not frappe.db.exists("Cash Transaction", {"name": cash_transaction_id, "docstatus": 1}):
 		return
-	ct = frappe.get_doc("Cash Transaction", {"name": cash_transaction_id, "docstatus": 1})
+	ct = frappe.get_doc("Cash Transaction", cash_transaction_id)
 	frappe.msgprint(
 		_("Linked Cash Transaction {0} was automatically cancelled as well.").format(ct.name), alert=True
 	)
