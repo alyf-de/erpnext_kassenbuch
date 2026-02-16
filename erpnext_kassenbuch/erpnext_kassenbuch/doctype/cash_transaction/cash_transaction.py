@@ -10,10 +10,6 @@ from frappe.utils import flt, fmt_money
 
 
 class CashTransaction(Document):
-	def before_save(self):
-		self.unallocated_amount = self.get_unallocated_amount()
-		self.unallocated_account = self.unallocated_account if self.unallocated_amount > 0 else None
-
 	def before_validate(self):
 		self.set_party_from_reference()
 
@@ -21,6 +17,10 @@ class CashTransaction(Document):
 		self.set_title()
 		self.validate_mandatory_fields()
 		self.validate_unallocated_amount()
+
+	def before_save(self):
+		self.unallocated_amount = self.get_unallocated_amount()
+		self.unallocated_account = self.unallocated_account if self.unallocated_amount > 0 else None
 
 	def before_submit(self):
 		self.unallocated_amount = self.get_unallocated_amount()
@@ -61,6 +61,16 @@ class CashTransaction(Document):
 		if not self.amount or self.amount <= 0:
 			frappe.throw(frappe._("Amount must be greater than zero"))
 
+	def _validate_reference_for_pay_receive(self):
+		if self.type in ("Pay", "Receive"):
+			if not self.reference_type or not self.reference_name:
+				frappe.throw(frappe._("Reference Type and Name are mandatory for type {0}").format(self.type))
+
+	def _validate_bank_account_for_bank_types(self):
+		if self.type in ("Bank Withdrawal", "Bank Deposit"):
+			if not self.bank_account:
+				frappe.throw(frappe._("Bank Account is mandatory for type {0}").format(self.type))
+
 	def validate_unallocated_amount(self):
 		"""
 		Avoid that 100% is unallocated (for example, if there is no outstanding amount on the reference).
@@ -100,16 +110,6 @@ class CashTransaction(Document):
 	def update_unallocated_only(self):
 		"""Update only unallocated_amount and unallocated_account (no submit)."""
 		self.save()
-
-	def _validate_reference_for_pay_receive(self):
-		if self.type in ("Pay", "Receive"):
-			if not self.reference_type or not self.reference_name:
-				frappe.throw(frappe._("Reference Type and Name are mandatory for type {0}").format(self.type))
-
-	def _validate_bank_account_for_bank_types(self):
-		if self.type in ("Bank Withdrawal", "Bank Deposit"):
-			if not self.bank_account:
-				frappe.throw(frappe._("Bank Account is mandatory for type {0}").format(self.type))
 
 	def create_journal_entry(self):
 		"""
