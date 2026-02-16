@@ -28,6 +28,11 @@ app_license = "mit"
 # app_include_css = "/assets/erpnext_kassenbuch/css/erpnext_kassenbuch.css"
 # app_include_js = "/assets/erpnext_kassenbuch/js/erpnext_kassenbuch.js"
 
+doctype_js = {
+	"Purchase Invoice": "public/js/purchase_invoice.js",
+	"Sales Invoice": "public/js/sales_invoice.js",
+}
+
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_kassenbuch/css/erpnext_kassenbuch.css"
 # web_include_js = "/assets/erpnext_kassenbuch/js/erpnext_kassenbuch.js"
