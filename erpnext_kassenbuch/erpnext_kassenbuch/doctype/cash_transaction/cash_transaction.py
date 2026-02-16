@@ -3,6 +3,7 @@
 
 import frappe
 from erpnext import get_default_cost_center
+from erpnext.accounts.utils import get_balance_on
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt, fmt_money
@@ -31,6 +32,7 @@ class CashTransaction(Document):
 				frappe._("Unallocated account is mandatory when unallocated amount is greater than zero")
 			)
 		self.create_journal_entry()
+		self.show_success_message()
 
 	def set_party_from_reference(self):
 		"""
@@ -253,3 +255,44 @@ class CashTransaction(Document):
 			credit_row["party_type"] = self.party_type
 			credit_row["party"] = self.party
 		return [debit_row, credit_row]
+
+	def show_success_message(self):
+		"""
+		Show an alert that shows:
+		- Bank Withdrawal/Bank Deposit: Success message incl. new balance of the cash account.
+		- Pay/Receive: Success message incl. what was allocated, what was unallocated, and what is the balance.
+		"""
+		balance = flt(
+			get_balance_on(
+				account=self.cash_account,
+				date=self.date,
+				company=self.company,
+			),
+			2,
+		)
+		currency = frappe.db.get_value("Account", self.cash_account, "account_currency")
+		balance_fmt = fmt_money(balance, currency=currency)
+
+		if self.type in ("Bank Withdrawal", "Bank Deposit"):
+			title = _("{0} submitted").format(
+				_(self.type),
+			)
+			msg = _("Cash account balance: {0}").format(
+				balance_fmt,
+			)
+		else:
+			allocated = flt(self.amount, 2) - flt(self.unallocated_amount, 2)
+			allocated_fmt = fmt_money(allocated, currency=currency)
+			unallocated_fmt = fmt_money(self.unallocated_amount, currency=currency)
+			title = _("Cash Transaction submitted")
+			msg = _(
+				"Allocated: {0} on {1} ({2}).<br>Unallocated: {3} ({4}).<br>Cash account balance: {5}."
+			).format(
+				allocated_fmt,
+				_(self.reference_type),
+				self.reference_name,
+				unallocated_fmt,
+				self.unallocated_account,
+				balance_fmt,
+			)
+		frappe.msgprint(msg, title=title, indicator="green")
