@@ -2,7 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
-from erpnext.accounts.utils import get_default_cost_center
+from erpnext import get_default_cost_center
 from frappe.model.document import Document
 from frappe.utils import flt
 
