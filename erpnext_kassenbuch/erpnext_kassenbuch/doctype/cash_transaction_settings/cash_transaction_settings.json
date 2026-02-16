@@ -1,0 +1,45 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-02-16 18:24:25.548190",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "allow_manual_journal_entries"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "description": "If activated, Journal Entries can be created manually (or via Bank Reconciliation Tool). If activated, you can save some clicks (e. g. by reconciling a Bank Withdrawal directly from the Bank Reconciliation Tool). On the other hand, you are at risk to create the same withdrawal twice: Once via Cash Transaction and once via Bank Reconciliation Tool. If you leave this setting disabled and you use a Bank Reconciliation Tool, you need to create a Cash Transaction first and reconcile the Bank Transaction (in the Bank Reconciliation Tool) with the resulting Journal Entry.\nThis setting only considers cash accounts.",
+   "fieldname": "allow_manual_journal_entries",
+   "fieldtype": "Check",
+   "label": "Allow manual Journal Entries"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-02-16 18:32:27.299436",
+ "modified_by": "Administrator",
+ "module": "ERPNext Kassenbuch",
+ "name": "Cash Transaction Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

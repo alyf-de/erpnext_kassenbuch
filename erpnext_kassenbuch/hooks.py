@@ -144,6 +144,7 @@ after_install = "erpnext_kassenbuch.install.after_install"
 
 doc_events = {
 	"Journal Entry": {
+		"before_submit": "erpnext_kassenbuch.scripts.journal_entry.before_submit",
 		"on_cancel": "erpnext_kassenbuch.scripts.journal_entry.on_cancel",
 	},
 }

@@ -5,6 +5,19 @@ import frappe
 from frappe import _
 
 
+def before_submit(doc, method=None):
+	if doc.custom_cash_transaction or frappe.db.get_single_value(
+		"Cash Transaction Settings", "allow_manual_journal_entries"
+	):
+		return
+	if any(frappe.db.get_value("Account", row.account, "account_type") == "Cash" for row in doc.accounts):
+		frappe.throw(
+			_(
+				"Journal Entries that include a Cash Account have to be created via the <b>Cash Transaction</b> doctype. Alternatively you can activate the <i>Allow manual Journal Entries</i> setting in the <b>Cash Transaction Settings</b>."
+			)
+		)
+
+
 def on_cancel(doc, method=None):
 	if doc.custom_cash_transaction:
 		cancel_cash_transaction(doc.custom_cash_transaction)
