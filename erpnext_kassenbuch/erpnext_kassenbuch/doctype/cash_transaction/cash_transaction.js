@@ -2,6 +2,33 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Cash Transaction", {
+	refresh(frm) {
+		frm.add_custom_button(__("Cash Book"), function () {
+			const filters = {};
+			if (frm.doc.cash_account) filters.cash_account = frm.doc.cash_account;
+			if (frm.doc.company) filters.company = frm.doc.company;
+			frappe.set_route("query-report", "Cash Book", filters);
+		});
+	},
+
+	onload(frm) {
+		frm.set_query("reference_name", function () {
+			if (!frm.doc.reference_type) return {};
+			const filters = { docstatus: 1, outstanding_amount: ["!=", 0] };
+			if (frm.doc.company) {
+				filters.company = frm.doc.company;
+			}
+			return { filters };
+		});
+		frm.set_query("unallocated_account", function () {
+			const filters = { is_group: 0 };
+			if (frm.doc.company) {
+				filters.company = frm.doc.company;
+			}
+			return { filters };
+		});
+	},
+
 	before_submit(frm) {
 		return new Promise((resolve) => {
 			if (
@@ -38,24 +65,6 @@ frappe.ui.form.on("Cash Transaction", {
 						}
 					);
 				});
-		});
-	},
-
-	onload(frm) {
-		frm.set_query("reference_name", function () {
-			if (!frm.doc.reference_type) return {};
-			const filters = { docstatus: 1, outstanding_amount: ["!=", 0] };
-			if (frm.doc.company) {
-				filters.company = frm.doc.company;
-			}
-			return { filters };
-		});
-		frm.set_query("unallocated_account", function () {
-			const filters = { is_group: 0 };
-			if (frm.doc.company) {
-				filters.company = frm.doc.company;
-			}
-			return { filters };
 		});
 	},
 
