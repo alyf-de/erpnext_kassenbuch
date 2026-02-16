@@ -59,6 +59,7 @@
    "label": "Title"
   },
   {
+   "default": "Pay",
    "fieldname": "type",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -68,6 +69,7 @@
    "reqd": 1
   },
   {
+   "default": "Purchase Invoice",
    "depends_on": "eval:in_list(['Pay', 'Receive'], doc.type)",
    "fieldname": "reference_type",
    "fieldtype": "Link",
@@ -223,7 +225,7 @@
    "link_fieldname": "custom_cash_transaction"
   }
  ],
- "modified": "2026-02-16 18:38:06.461229",
+ "modified": "2026-02-16 19:02:59.441575",
  "modified_by": "Administrator",
  "module": "ERPNext Kassenbuch",
  "name": "Cash Transaction",
