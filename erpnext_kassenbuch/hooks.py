@@ -94,6 +94,7 @@ doctype_js = {
 
 # before_install = "erpnext_kassenbuch.install.before_install"
 after_install = "erpnext_kassenbuch.install.after_install"
+after_migrate = "erpnext_kassenbuch.install.after_migrate"
 
 # Uninstallation
 # ------------
